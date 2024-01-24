@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Deployment.Application;
 using System.Windows.Forms;
 
 namespace HelloClickOnce.App
@@ -15,6 +9,16 @@ namespace HelloClickOnce.App
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                var version = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+                VersionLabel.Text = $"Version: {version}";
+            }
+
         }
     }
 }
