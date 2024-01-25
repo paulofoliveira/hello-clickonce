@@ -30,6 +30,7 @@
         {
             this.VersionLabel = new System.Windows.Forms.Label();
             this.UpgradeButton = new System.Windows.Forms.Button();
+            this.SecretKeyLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // VersionLabel
@@ -43,7 +44,7 @@
             // 
             // UpgradeButton
             // 
-            this.UpgradeButton.Location = new System.Drawing.Point(99, 64);
+            this.UpgradeButton.Location = new System.Drawing.Point(202, 12);
             this.UpgradeButton.Name = "UpgradeButton";
             this.UpgradeButton.Size = new System.Drawing.Size(170, 23);
             this.UpgradeButton.TabIndex = 1;
@@ -52,11 +53,20 @@
             this.UpgradeButton.Visible = false;
             this.UpgradeButton.Click += new System.EventHandler(this.UpgradeButton_Click);
             // 
+            // SecretKeyLabel
+            // 
+            this.SecretKeyLabel.Location = new System.Drawing.Point(12, 12);
+            this.SecretKeyLabel.Name = "SecretKeyLabel";
+            this.SecretKeyLabel.Size = new System.Drawing.Size(184, 23);
+            this.SecretKeyLabel.TabIndex = 2;
+            this.SecretKeyLabel.Text = "Secret Key Here!";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 161);
+            this.Controls.Add(this.SecretKeyLabel);
             this.Controls.Add(this.UpgradeButton);
             this.Controls.Add(this.VersionLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -72,6 +82,7 @@
 
         private System.Windows.Forms.Label VersionLabel;
         private System.Windows.Forms.Button UpgradeButton;
+        private System.Windows.Forms.Label SecretKeyLabel;
     }
 }
 

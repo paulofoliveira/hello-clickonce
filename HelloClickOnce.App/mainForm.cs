@@ -6,9 +6,11 @@ namespace HelloClickOnce.App
 {
     public partial class MainForm : Form
     {
+        private CustomSecretService CustomSecretService { get; set; }
         public MainForm()
         {
             InitializeComponent();
+            CustomSecretService = new CustomSecretService();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -25,6 +27,8 @@ namespace HelloClickOnce.App
 
             UpgradeButton.Visible = updateCheckInfo.UpdateAvailable;
             VersionLabel.Text = $"Version: {currentDeployment.CurrentVersion}";
+
+            SecretKeyLabel.Text = CustomSecretService.GetSecretKey();
         }
 
         private void UpgradeButton_Click(object sender, EventArgs e)
