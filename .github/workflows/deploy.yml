@@ -13,6 +13,7 @@ env:
   CSPROJ_PATH: 'HelloClickOnce.App\HelloClickOnce.App.csproj'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\HelloClickOnce.App\bin\Release\app.publish
   CLICKONCE_ARTIFACT_NAME: 'HelloClickOnceApp'
+  VERSION: '1.0.0.1'
 
 jobs:
     build-and-publish:
@@ -21,7 +22,12 @@ jobs:
         steps:
           - name: 'Checkout'
             uses: actions/checkout@v4.1.1
-        
+            
+          - name: 'Generate and Change Files'
+            run: |
+                $secretKey = .\.github\build\GenerateAndUpdateFileWithSecretKey.ps1 -FilePath ".\HelloClickOnce.App\CustomSecretService.cs" -Length 24
+                Write-Host "SecretKey was $secretKey"
+                    
           - name: 'Setup MSBuild'
             uses: microsoft/setup-msbuild@v1.3.1
 
@@ -35,7 +41,7 @@ jobs:
             run: msbuild ${{ env.CSPROJ_PATH }} /t:build /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }}
 
           - name: "Publish"
-            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion="1.0.0.0" /p:MinimumRequiredVersion="1.0.0.0" /p:VersionAssembly="1.0.0.0"
+            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion=${{ env.VERSION }} /p:MinimumRequiredVersion=${{ env.VERSION }} /p:VersionAssembly=${{ env.VERSION }}
 
           - name: "Upload Artifact"
             uses: actions/upload-artifact@v4.3.0
