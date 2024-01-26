@@ -1,0 +1,44 @@
+name: 'Build'
+on:
+    push:
+        branches: [ main ]
+        paths:
+            - 'HelloClickOnce.App/**'
+
+    workflow_dispatch: # Allow you to run this workflow manually from the Action tab
+
+env:
+  BUILD_CONFIGURATION: 'Release'
+  BUILD_PLATFORM: 'AnyCPU'
+  CSPROJ_PATH: 'HelloClickOnce.App\HelloClickOnce.App.csproj'
+  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\HelloClickOnce.App\bin\Release\app.publish
+  CLICKONCE_ARTIFACT_NAME: 'HelloClickOnceApp'
+
+jobs:
+    build-and-publish:
+        name: 'Build and Publish'
+        runs-on: windows-latest
+        steps:
+          - name: 'Checkout'
+            uses: actions/checkout@v4.1.1
+        
+          - name: 'Setup MSBuild'
+            uses: microsoft/setup-msbuild@v1.3.1
+
+          - name: 'Setup Nuget'
+            uses: NuGet/setup-nuget@v1.2.0
+
+          - name: 'Nuget Restore Packages'
+            run: nuget restore "HelloClickOnce.sln"
+
+          - name: "Build"
+            run: msbuild ${{ env.CSPROJ_PATH }} /t:build /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }}
+
+          - name: "Publish"
+            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion="1.0.0.0" /p:MinimumRequiredVersion="1.0.0.0" /p:VersionAssembly="1.0.0.0"
+
+          - name: "Upload Artifact"
+            uses: actions/upload-artifact@v4.3.0
+            with:
+              name: ${{ env.CLICKONCE_ARTIFACT_NAME }}
+              path: ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
