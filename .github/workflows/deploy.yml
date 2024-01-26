@@ -13,7 +13,7 @@ env:
   CSPROJ_PATH: 'HelloClickOnce.App\HelloClickOnce.App.csproj'
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}\HelloClickOnce.App\bin\Release\app.publish
   CLICKONCE_ARTIFACT_NAME: 'HelloClickOnceApp'
-  VERSION: '1.0.0.1'
+  VERSION: '1.0.0.2'
 
 jobs:
     build-and-publish:
@@ -41,7 +41,7 @@ jobs:
             run: msbuild ${{ env.CSPROJ_PATH }} /t:build /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }}
 
           - name: "Publish"
-            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion=${{ env.VERSION }} /p:MinimumRequiredVersion=${{ env.VERSION }} /p:VersionAssembly=${{ env.VERSION }}
+            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }} /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion=${{ env.VERSION }} /p:MinimumRequiredVersion=${{ env.VERSION }} /p:VersionAssembly=${{ env.VERSION }}
 
           - name: "Upload Artifact"
             uses: actions/upload-artifact@v4.3.0

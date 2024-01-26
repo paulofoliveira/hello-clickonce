@@ -1,4 +1,14 @@
-﻿param(
+﻿<#
+
+1. Generate a Key to use for encryption.
+2. Use this key to encrypt connection strings. This connectionStrings are in the vault.
+3. Add this connection strings on file configuration (App.config or Web.config)
+4. Update Csharp file with key to decrypt in .NET application.
+
+This steps (3 and 4) doesn't have a specific order.
+
+#>
+param(
     [Parameter(Mandatory)]
     [string] $FilePath,
     [int] $Length = 16,
@@ -21,7 +31,7 @@ function Generate-RandomPassword {
     $result = New-Object char[]($length)
   
     for ($i = 0 ; $i -lt $length ; $i++) {
-        $result[$i] = $charSet[$bytes[$i]%$charSet.Length]
+        $result[$i] = $charSet[$bytes[$i] % $charSet.Length]
     }
  
     return -join $result
@@ -32,7 +42,7 @@ $secretKey = Generate-RandomPassword -Length $Length
 $allText = [System.IO.File]::ReadAllText($FilePath)
 [System.IO.File]::WriteAllText($FilePath, $allText.Replace($Template, $secretKey))
 
-Write-Host "$FilePath updated with SecretKey!" -ForegroundColor Green
+Write-Host "$FilePath was updated with new SecretKey!" -ForegroundColor Green
 
 return $secretKey
 
