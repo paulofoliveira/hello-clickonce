@@ -21,7 +21,12 @@ jobs:
         steps:
           - name: 'Checkout'
             uses: actions/checkout@v4.1.1
-        
+            
+          - name: 'Generate and Change Files'
+            run: |
+                $secretKey = .\.github\build\GenerateAndUpdateFileWithSecretKey.ps1 -FilePath ".\HelloClickOnce.App\CustomSecretService.cs" -Length 24
+                Write-Host "SecretKey was $secretKey"
+                    
           - name: 'Setup MSBuild'
             uses: microsoft/setup-msbuild@v1.3.1
 
