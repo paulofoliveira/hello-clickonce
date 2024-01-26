@@ -41,7 +41,7 @@ jobs:
             run: msbuild ${{ env.CSPROJ_PATH }} /t:build /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }}
 
           - name: "Publish"
-            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration="${{ env.BUILD_CONFIGURATION }}" /p:Platform="${{ env.BUILD_PLATFORM }}" /p:PublishUrl="ftps://waws-prod-blu-321.ftp.azurewebsites.windows.net/site/wwwroot/" /p:InstallUrl="https://clickoncedemoapp.azurewebsites.net/" /p:ApplicationVersion="${{ env.VERSION }}" /p:MinimumRequiredVersion="${{ env.VERSION }}" /p:VersionAssembly="${{ env.VERSION }}"
+            run: msbuild ${{ env.CSPROJ_PATH }} /t:publish /p:Configuration="${{ env.BUILD_CONFIGURATION }}" /p:Platform="${{ env.BUILD_PLATFORM }}" /p:ApplicationVersion="${{ env.VERSION }}" /p:MinimumRequiredVersion="${{ env.VERSION }}" /p:VersionAssembly="${{ env.VERSION }}"
 
           - name: "Upload Artifact"
             uses: actions/upload-artifact@v4.3.0
