@@ -15,7 +15,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <PublishUrl>publish\</PublishUrl>
+    <PublishUrl>ftps://waws-prod-blu-321.ftp.azurewebsites.windows.net/site/wwwroot/</PublishUrl>
+    <InstallUrl>https://clickoncedemoapp.azurewebsites.net/</InstallUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
