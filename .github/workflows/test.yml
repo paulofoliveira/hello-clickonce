@@ -1,0 +1,20 @@
+name: 'Build'
+on:
+    push:
+        branches: [ deploy ]      
+
+    workflow_dispatch: # Allow you to run this workflow manually from the Action tab
+    
+jobs:
+    deploy-by-ftp:
+        name: 'Deploy by FTP'
+        runs-on: windows-latest
+        steps:
+          - name: "Setup WinSCP"
+            run: |
+              choco install winscp -y
+          - name: "Upload Files"
+            run: |
+              "testando 123" > "teste.txt"
+              winscp.com /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
+              
