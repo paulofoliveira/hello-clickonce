@@ -13,7 +13,7 @@ jobs:
           - name: "Test Port"
             run: |
                 choco install tcping --yes
-                tcping "ftps://${{ secrets.FTP_HOST }}" 990
+                tcping ${{ secrets.FTP_HOST }} 990
           - name: "Setup WinSCP"
             run: |
               choco install winscp -y
