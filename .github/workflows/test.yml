@@ -20,5 +20,5 @@ jobs:
           - name: "Upload Files"
             run: |
               "testando 123" > "teste.txt"
-              winscp /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
+              "C:\Program Files (x86)\WinSCP\winscp.exe" /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
               
