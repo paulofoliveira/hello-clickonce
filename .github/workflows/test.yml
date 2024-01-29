@@ -10,15 +10,12 @@ jobs:
         name: 'Deploy by FTP'
         runs-on: windows-latest
         steps:
-          - name: "Test Port"
-            run: |
-                choco install tcping --yes
-                tcping ${{ secrets.FTP_HOST }} 990
           - name: "Setup WinSCP"
             run: |
               choco install winscp -y
           - name: "Upload Files"
             run: |
               "testando 123" > "teste.txt"
-              "C:\Program Files (x86)\WinSCP\winscp.exe" /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
+              Get-Content ".\teste.txt"
+              winscp.com /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
               
