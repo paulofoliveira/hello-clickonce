@@ -15,7 +15,7 @@ jobs:
               choco install winscp -y
           - name: "Upload Files"
             run: |
-              "testando 123" > "teste.txt"
-              Get-Content ".\teste.txt"
+              "testando 123" > "teste.txt"   
               winscp.com /command "open ftps://${{ secrets.FTP_USER }}:${{ secrets.FTP_PASSWD }}@${{ secrets.FTP_HOST }}" "option batch on" "option confirm off" "put teste.txt /site/wwwroot/" "exit"
+            shell: cmd
               
